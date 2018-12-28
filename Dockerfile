@@ -23,4 +23,10 @@ COPY etdel.sh /bin/etdel
 COPY etfile.sh /bin/etfile
 COPY etoutput.sh /bin/etoutput
 COPY fornax-orderer.sh /bin/fornax-orderer
+RUN chmod +x /bin/et
+RUN chmod +x /bin/etset
+RUN chmod +x /bin/etdel
+RUN chmod +x /bin/etfile
+RUN chmod +x /bin/etoutput
+RUN chmod +x /bin/fornax-orderer
 ENTRYPOINT ["/bin/fornax-orderer"]
