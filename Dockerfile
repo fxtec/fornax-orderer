@@ -1,13 +1,13 @@
 #https://github.com/yeasy/docker-hyperledger-fabric-orderer/blob/master/v1.2.0/Dockerfile
 FROM hyperledger/fabric-orderer:1.2.0
 EXPOSE 7050
-# FIXME colocar nivel: info
-ENV ORDERER_GENERAL_LOGLEVEL debug
+ENV ORDERER_GENERAL_LOGLEVEL info
 ENV ORDERER_GENERAL_LISTENADDRESS 0.0.0.0
 ENV ORDERER_GENERAL_GENESISMETHOD file
-ENV ORDERER_GENERAL_GENESISFILE /etc/hyperledger/fabric/config/genesis.block
-ENV ORDERER_GENERAL_LOCALMSPID Org1MSP
-ENV ORDERER_GENERAL_LOCALMSPDIR /etc/hyperledger/fabric/crypto-config/ordererOrganizations/blockchain.com/orderers/orderer.blockchain.com/msp
+ENV ORDERER_GENERAL_GENESISFILE /etc/hyperledger/configtx/genesis.block
+ENV ORDERER_GENERAL_LOCALMSPID OrdererMSP
+ENV ORDERER_GENERAL_LOCALMSPDIR /etc/hyperledger/msp/orderer/msp
+ENV HOME_DIR=/opt/gopath/src/github.com/hyperledger/fabric/orderer
 
 #pre-req etcd's.sh
 RUN apt-get update && \
@@ -29,4 +29,5 @@ RUN chmod +x /bin/etfile
 RUN chmod +x /bin/etoutput
 COPY fornax-orderer.sh /bin/fornax-orderer
 RUN chmod +x /bin/fornax-orderer
+WORKDIR $HOME_DIR
 ENTRYPOINT ["/bin/fornax-orderer"]
